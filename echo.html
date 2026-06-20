@@ -6,19 +6,19 @@
 </head>
 <body>
 
-<h1>echo</h1>
+<h1>Echo</h1>
 
-<!-- Zurück zur index -->
-<a href="index.html">→ index</a>
+<p>Aktiver Bereich:</p>
 
-<!-- Echo-Ansicht der System-Lage -->
-<p>Echo aktiv – Systemstruktur:</p>
+<h2>
+  <!-- zeigt den aktiven Bereich -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.write(params.get("active") || "Keiner");
+  </script>
+</h2>
 
-<ul>
-  <li>OT → RAW</li>
-  <li>TR → RAW</li>
-  <li>OS → RP / NC / MS / R1 / LS</li>
-</ul>
+<a href="index.html">Zurück</a>
 
 </body>
 </html>
