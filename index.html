@@ -1,130 +1,26 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <title>Ereignishorizont – root</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="core/core_hud.css">
-  <style>
-    body{
-      margin:0;padding:2rem;
-      background:#000;color:#fff;
-      font-family:system-ui,sans-serif;
-      display:flex;align-items:center;justify-content:center;
-      text-align:center;
-    }
-    .wrap{max-width:900px;width:100%}
-    .title{font-size:40px;margin-bottom:18px}
-    .story{font-size:20px;line-height:1.45;min-height:160px}
-    .controls{margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    button{background:#0b1220;color:#7dd3fc;border:1px solid #1f2937;padding:10px 18px;font-size:16px;cursor:pointer}
-    a{color:#7dd3fc;text-decoration:none;font-size:15px}
-    .meta{margin-top:14px;color:#9ca3af;font-size:13px}
-    .small{font-size:16px;color:#9ca3af}
-  </style>
+<meta charset="UTF-8">
+<title>index</title>
 </head>
 <body>
 
-  <!-- CORE HUD -->
-  <div id="coreHUD"></div>
-  <script>
-    fetch("core/core_hud.html")
-      .then(r=>r.text())
-      .then(h=>{ document.getElementById("coreHUD").innerHTML = h; });
-  </script>
+<h1>index</h1>
 
-  <div class="wrap">
-    <div class="title">Ereignishorizont – root</div>
-    <div id="story" class="story"></div>
+<!-- Link zur Echo-Seite -->
+<a href="echo.html">→ echo</a>
 
-    <div class="controls">
-      <button id="regen">KlicK – neue Variante</button>
-      <button id="regenSlow">KlicK mit Pause</button>
-      <a href="uc/uc.html">← Vergangenheit</a>
-      <a href="1/1.html">Jetzt</a>
-      <a href="iki/iki.html">Zukunft →</a>
-      <a href="echo.html">Echo ▸</a>
-    </div>
-
-    <div class="meta small" id="meta"></div>
-  </div>
-
-  <!-- ENGINE -->
-  <script src="anchor_engine.js"></script>
-
-  <!-- PAGE SCRIPT (root) -->
-  <script type="module">
-    const pageId = "root";
-
-    const pool = {
-      core:[
-        "Es gibt Knotenpunkte, nach denen ein Leben anders weiterläuft.",
-        "Manche Augenblicke tragen mehr Gewicht als ganze Jahre.",
-        "Ein einziger Moment kann eine Biografie ablenken oder ausrichten."
-      ],
-      ort:[
-        "an einem Rand, den du innerlich markiert hast",
-        "in einem Raum, der nur noch in dir existiert",
-        "zwischen zwei Sätzen, die nie zurückgenommen wurden"
-      ],
-      stimmung:[
-        "und seitdem ist nichts mehr ganz neutral.",
-        "und du weißt, dass es nie wieder exakt so wird wie davor.",
-        "und du trägst es, ob du willst oder nicht."
-      ],
-      trichter:[
-        "Was du nicht vergisst, definiert, was du nie wieder freigibst.",
-        "Manche Grenzen entstehen in einem einzigen Augenblick.",
-        "Nicht jedes Ereignis ist fair – aber jedes hinterlässt eine Richtung."
-      ]
-    };
-
-    function r(a){ return a[Math.floor(Math.random()*a.length)] }
-
-    const storyEl = document.getElementById("story");
-    const metaEl  = document.getElementById("meta");
-
-    function buildCombo(){
-      return {
-        kern: r(pool.core),
-        ort: r(pool.ort),
-        stimmung: r(pool.stimmung),
-        trichter: r(pool.trichter)
-      };
-    }
-
-    function render(c){
-      storyEl.innerHTML =
-        '<div>'+c.kern+'</div><br>'+
-        '<div class="small">'+c.ort+' '+c.stimmung+'</div><br>'+
-        '<div style="margin-top:6px"><b>'+c.trichter+'</b></div>';
-      metaEl.textContent = 'root • '+new Date().toLocaleTimeString();
-    }
-
-    function generate(withPause=true){
-      const combo = buildCombo();
-      halt("root_story");
-      if(withPause){
-        storyEl.innerHTML = '<div class="small" style="opacity:.6">…Ereignis sortiert sich</div>';
-        setTimeout(()=>render(combo),750);
-      } else {
-        render(combo);
-      }
-    }
-
-    document.getElementById("regen").addEventListener("click", ()=>{ halt("root_click_fast"); generate(false); });
-    document.getElementById("regenSlow").addEventListener("click", ()=>{ halt("root_click_slow"); generate(true); });
-
-    generate(true);
-    if(typeof STATION_PRUEFUNG==="function"){ STATION_PRUEFUNG("root","PI"); }
-  </script>
-
-  <!-- CORE LOGIK -->
-  <script src="core/core_halt.js"></script>
-  <script src="core/core_navi.js"></script>
-  <script src="core/core_bigcube.js"></script>
-  <script src="core/core_scanner.js"></script>
-  <script src="core/core_station.js"></script>
+<!-- System-Lage-Anzeige -->
+<ul>
+  <li>OT/ot.txt</li>
+  <li>TR/tr.txt</li>
+  <li>OS/RP/rp.txt</li>
+  <li>OS/NC/nc.txt</li>
+  <li>OS/MS/ms.txt</li>
+  <li>OS/R1/r1.txt</li>
+  <li>OS/LS/ls.txt</li>
+</ul>
 
 </body>
 </html>
