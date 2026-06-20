@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>ERROR</title>
+</head>
+<body>
+
+<h1>RESPO: ERROR</h1>
+
+<p>Diese Instanz zeigt Fehler-Hinweise aus dem System.</p>
+
+<h2>Aktiver Bereich:</h2>
+<p>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  document.write(params.get("active") || "unbekannt");
+</script>
+</p>
+
+<h2>Hinweis:</h2>
+<p>
+<script>
+  const hint = params.get("hint");
+  document.write(hint || "Kein Fehler gemeldet.");
+</script>
+</p>
+
+<a href="index.html">Zurück</a>
+
+</body>
+</html>
 
