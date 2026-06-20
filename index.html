@@ -1,33 +1,23 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>PRIME.ROOT.START</title>
+  <meta charset="UTF-8">
+  <title>RESPO MOTION PRIME</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>ROOT / PRIME START</h1>
+<div id="respo">
+  <button class="cmd" data-cmd="Start.">Start.</button>
+  <button class="cmd" data-cmd="Stop.">Stop.</button>
+  <button class="cmd" data-cmd="Weiter.">Weiter.</button>
+  <button class="cmd" data-cmd="Zurueck.">Zurueck.</button>
+  <button class="cmd" data-cmd="Freigabe.">Freigabe.</button>
+  <button class="cmd" data-cmd="Haben.">Haben.</button>
+</div>
 
-<!-- 5 Achsen -->
-<form action="echo.html" method="get">
-  <button name="active" value="RP">RP</button>
-  <button name="active" value="NC">NC</button>
-  <button name="active" value="MS">MS</button>
-  <button name="active" value="R1">R1</button>
-  <button name="active" value="LS">LS</button>
-</form>
+<div id="log"></div>
 
-<hr>
-
-<!-- Motion Prime Fehler -->
-<a href="error.html?from=MotionPrime&active=NC&hint=Prime+Trigger+Fehler">
-  MotionPrime → ERROR
-</a>
-
-<br><br>
-
-<!-- Echo öffnen -->
-<a href="echo.html">Echo öffnen</a>
-
+<script src="respo.js"></script>
 </body>
 </html>
