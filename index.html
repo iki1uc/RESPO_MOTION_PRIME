@@ -2,13 +2,13 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>index</title>
+<title>ROOT</title>
 </head>
 <body>
 
-<h1>5-Achsen System</h1>
+<h1>ROOT / index</h1>
 
-<!-- Die 5 Achsen -->
+<!-- 5 Achsen -->
 <form action="echo.html" method="get">
   <button name="active" value="RP">RP</button>
   <button name="active" value="NC">NC</button>
@@ -19,8 +19,13 @@
 
 <hr>
 
-<!-- ERROR direkt aus ROOT senden -->
-<a href="error.html?from=index&hint=ROOT+sendet+Fehler">ERROR</a>
+<!-- Motion Prime Fehler senden -->
+<a href="error.html?from=MotionPrime&active=NC&hint=MotionPrime+Fehler">MotionPrime → ERROR</a>
+
+<br><br>
+
+<!-- Echo öffnen -->
+<a href="echo.html">Echo öffnen</a>
 
 </body>
 </html>
