@@ -1,1 +1,30 @@
+body {
+  background: #111;
+  color: #eee;
+  font-family: monospace;
+}
+
+#respo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px;
+}
+
+.cmd {
+  padding: 10px 20px;
+  background: #222;
+  border: 1px solid #555;
+  color: #eee;
+  cursor: pointer;
+}
+
+#log {
+  margin: 20px;
+  padding: 10px;
+  background: #000;
+  border: 1px solid #333;
+  height: 200px;
+  overflow-y: auto;
+}
 
