@@ -1,137 +1,24 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <title>Echo – Rückwurf</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="core/core_hud.css">
-  <style>
-    body{
-      margin:0;padding:2rem;
-      background:#000;color:#fff;
-      font-family:system-ui,sans-serif;
-      display:flex;align-items:center;justify-content:center;
-      text-align:center;
-    }
-    .wrap{max-width:900px;width:100%}
-    .title{font-size:34px;margin-bottom:18px}
-    .story{font-size:20px;line-height:1.45;min-height:160px}
-    .controls{margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    button{background:#0b1220;color:#7dd3fc;border:1px solid #1f2937;padding:10px 18px;font-size:16px;cursor:pointer}
-    a{color:#7dd3fc;text-decoration:none;font-size:15px}
-    .meta{margin-top:14px;color:#9ca3af;font-size:13px}
-    .small{font-size:16px;color:#9ca3af}
-  </style>
+<meta charset="UTF-8">
+<title>echo</title>
 </head>
 <body>
 
-  <!-- CORE HUD -->
-  <div id="coreHUD"></div>
-  <script>
-    fetch("core/core_hud.html")
-      .then(r=>r.text())
-      .then(h=>{ document.getElementById("coreHUD").innerHTML = h; });
-  </script>
+<h1>echo</h1>
 
-  <div class="wrap">
-    <div class="title">Echo – was zurückkommt</div>
-    <div id="story" class="story"></div>
+<!-- Zurück zur index -->
+<a href="index.html">→ index</a>
 
-    <div class="controls">
-      <button id="regen">KlicK – neues Echo</button>
-      <button id="regenSlow">KlicK mit Pause</button>
-      <a href="index.html">← Ereignishorizont</a>
-    </div>
+<!-- Echo-Ansicht der System-Lage -->
+<p>Echo aktiv – Systemstruktur:</p>
 
-    <div class="meta small" id="meta"></div>
-  </div>
-
-  <!-- ENGINE -->
-  <script src="anchor_engine.js"></script>
-
-  <!-- PAGE SCRIPT (echo) -->
-  <script type="module">
-    const pageId = "echo";
-
-    // SCHIFFE-VERSENKEN: 0 = Wasser, 1 = Treffer
-    function schuss(){
-      return Math.random() < 0.33 ? 1 : 0;
-    }
-
-    const pool = {
-      wasser:[
-        "Das Echo trifft nur die Oberfläche.",
-        "Nichts versenkt – nur ein leiser Rückwurf.",
-        "Wasser. Das Ereignis bleibt unberührt."
-      ],
-      treffer:[
-        "Treffer – etwas Altes bewegt sich.",
-        "Ein Echo trifft genau die Stelle, die noch lebt.",
-        "Versenkt – das Ereignis antwortet deutlich."
-      ],
-      spur:[
-        "in Gedanken, die du nicht geplant hast",
-        "in Mustern, die du wiedererkennst",
-        "in Momenten, die dich kurz stoppen"
-      ],
-      trichter:[
-        "Echos zeigen, was noch Bedeutung hat.",
-        "Treffer verraten, wo die Wahrheit sitzt.",
-        "Wasser zeigt, was dich nicht mehr hält."
-      ]
-    };
-
-    function r(a){ return a[Math.floor(Math.random()*a.length)] }
-
-    const storyEl = document.getElementById("story");
-    const metaEl  = document.getElementById("meta");
-
-    function buildCombo(){
-      const hit = schuss();
-      return {
-        typ: hit,
-        kern: hit ? r(pool.treffer) : r(pool.wasser),
-        spur: r(pool.spur),
-        trichter: r(pool.trichter)
-      };
-    }
-
-    function render(c){
-      storyEl.innerHTML =
-        '<div>'+c.kern+'</div><br>'+
-        '<div class="small">'+c.spur+'</div><br>'+
-        '<div style="margin-top:6px"><b>'+c.trichter+'</b></div>';
-
-      metaEl.textContent =
-        'echo • '+
-        (c.typ ? 'TREFFER' : 'WASSER')+
-        ' • '+new Date().toLocaleTimeString();
-    }
-
-    function generate(withPause=true){
-      const combo = buildCombo();
-      halt("echo_story");
-      if(withPause){
-        storyEl.innerHTML = '<div class="small" style="opacity:.6">…Echo sortiert sich</div>';
-        setTimeout(()=>render(combo),750);
-      } else {
-        render(combo);
-      }
-    }
-
-    document.getElementById("regen").addEventListener("click", ()=>{ halt("echo_click_fast"); generate(false); });
-    document.getElementById("regenSlow").addEventListener("click", ()=>{ halt("echo_click_slow"); generate(true); });
-
-    generate(true);
-    if(typeof STATION_PRUEFUNG==="function"){ STATION_PRUEFUNG("echo","PI"); }
-  </script>
-
-  <!-- CORE LOGIK -->
-  <script src="core/core_halt.js"></script>
-  <script src="core/core_navi.js"></script>
-  <script src="core/core_bigcube.js"></script>
-  <script src="core/core_scanner.js"></script>
-  <script src="core/core_station.js"></script>
+<ul>
+  <li>OT → RAW</li>
+  <li>TR → RAW</li>
+  <li>OS → RP / NC / MS / R1 / LS</li>
+</ul>
 
 </body>
 </html>
