@@ -8,26 +8,32 @@
 
 <h1>RESPO: ERROR</h1>
 
-<p>Diese Instanz zeigt Fehler-Hinweise aus dem System.</p>
+<h2>Sender:</h2>
+<p>
+<script>
+  const p = new URLSearchParams(window.location.search);
+  document.write(p.get("from") || "unbekannt");
+</script>
+</p>
 
 <h2>Aktiver Bereich:</h2>
 <p>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  document.write(params.get("active") || "unbekannt");
+  document.write(p.get("active") || "nicht gesetzt");
 </script>
 </p>
 
 <h2>Hinweis:</h2>
 <p>
 <script>
-  const hint = params.get("hint");
-  document.write(hint || "Kein Fehler gemeldet.");
+  document.write(p.get("hint") || "Kein Fehler gemeldet.");
 </script>
 </p>
 
-<a href="index.html">Zurück</a>
+<hr>
+
+<!-- Zurück zu ROOT -->
+<a href="index.html">Zurück zu ROOT</a>
 
 </body>
 </html>
-
