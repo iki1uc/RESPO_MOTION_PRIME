@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <title>Echo – was zurückkommt</title>
+  <title>Echo – Rückwurf</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="core/core_hud.css">
   <style>
@@ -34,13 +34,15 @@
   </script>
 
   <div class="wrap">
-    <div class="title">Echo – was von Ereignissen übrig bleibt</div>
+    <div class="title">Echo – was zurückkommt</div>
     <div id="story" class="story"></div>
+
     <div class="controls">
       <button id="regen">KlicK – neues Echo</button>
       <button id="regenSlow">KlicK mit Pause</button>
       <a href="index.html">← Ereignishorizont</a>
     </div>
+
     <div class="meta small" id="meta"></div>
   </div>
 
@@ -51,26 +53,31 @@
   <script type="module">
     const pageId = "echo";
 
+    // SCHIFFE-VERSENKEN: 0 = Wasser, 1 = Treffer
+    function schuss(){
+      return Math.random() < 0.33 ? 1 : 0;
+    }
+
     const pool = {
-      kern:[
-        "Manche Dinge sind vorbei – aber sie klingen noch nach.",
-        "Nicht jedes Echo ist laut, aber du hörst es trotzdem.",
-        "Ein Echo ist der Beweis, dass etwas wirklich da war."
+      wasser:[
+        "Das Echo trifft nur die Oberfläche.",
+        "Nichts versenkt – nur ein leiser Rückwurf.",
+        "Wasser. Das Ereignis bleibt unberührt."
+      ],
+      treffer:[
+        "Treffer – etwas Altes bewegt sich.",
+        "Ein Echo trifft genau die Stelle, die noch lebt.",
+        "Versenkt – das Ereignis antwortet deutlich."
       ],
       spur:[
-        "in Sätzen, die du innerlich noch einmal hörst",
-        "in Gesten, die du bei dir selbst wiedererkennst",
-        "in Entscheidungen, die du heute anders triffst"
-      ],
-      stimmung:[
-        "und manchmal merkst du erst später, wie stark es war.",
-        "und du fragst dich, ob du damals wach genug warst.",
-        "und du spürst, dass es dich leiser, aber klarer gemacht hat."
+        "in Gedanken, die du nicht geplant hast",
+        "in Mustern, die du wiedererkennst",
+        "in Momenten, die dich kurz stoppen"
       ],
       trichter:[
-        "Was nachhallt, war nie nur Nebensache.",
-        "Echos sind die leise Version von Wahrheit.",
-        "Nicht alles kommt zurück – aber das Wichtige schon."
+        "Echos zeigen, was noch Bedeutung hat.",
+        "Treffer verraten, wo die Wahrheit sitzt.",
+        "Wasser zeigt, was dich nicht mehr hält."
       ]
     };
 
@@ -80,10 +87,11 @@
     const metaEl  = document.getElementById("meta");
 
     function buildCombo(){
+      const hit = schuss();
       return {
-        kern: r(pool.kern),
+        typ: hit,
+        kern: hit ? r(pool.treffer) : r(pool.wasser),
         spur: r(pool.spur),
-        stimmung: r(pool.stimmung),
         trichter: r(pool.trichter)
       };
     }
@@ -91,9 +99,13 @@
     function render(c){
       storyEl.innerHTML =
         '<div>'+c.kern+'</div><br>'+
-        '<div class="small">'+c.spur+' '+c.stimmung+'</div><br>'+
+        '<div class="small">'+c.spur+'</div><br>'+
         '<div style="margin-top:6px"><b>'+c.trichter+'</b></div>';
-      metaEl.textContent = 'echo • '+new Date().toLocaleTimeString();
+
+      metaEl.textContent =
+        'echo • '+
+        (c.typ ? 'TREFFER' : 'WASSER')+
+        ' • '+new Date().toLocaleTimeString();
     }
 
     function generate(withPause=true){
@@ -123,4 +135,3 @@
 
 </body>
 </html>
-
