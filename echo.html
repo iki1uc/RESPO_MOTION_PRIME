@@ -11,13 +11,22 @@
 <p>Aktiver Bereich:</p>
 
 <h2>
-  <!-- zeigt den aktiven Bereich -->
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    document.write(params.get("active") || "Keiner");
-  </script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const active = params.get("active") || "Keiner";
+  document.write(active);
+</script>
 </h2>
 
+<!-- Fehler an ERROR senden -->
+<a id="err"></a>
+<script>
+  document.getElementById("err").href =
+    "error.html?from=echo&active=" + active + "&hint=Echo+sendet+Fehler";
+  document.getElementById("err").innerText = "Fehler senden";
+</script>
+
+<br><br>
 <a href="index.html">Zurück</a>
 
 </body>
