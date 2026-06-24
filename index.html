@@ -1,23 +1,227 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>RESPO MOTION PRIME</title>
-  <link rel="stylesheet" href="style.css">
+  <title>RAWWAR – Minimal Amiga Scene</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000018;
+      color: #e0e0ff;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    /* Szene-Header / Menüführung */
+    #scene-menu {
+      background: #001030;
+      border-bottom: 1px solid #303060;
+      padding: 6px 10px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    #scene-menu span.label {
+      color: #8080ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #scene-menu button {
+      background: #000018;
+      color: #e0e0ff;
+      border: 1px solid #404080;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    #scene-menu button.active {
+      background: #202060;
+      border-color: #8080ff;
+    }
+
+    /* 3 Räume – minimal */
+    .raum {
+      padding: 10px;
+      border-bottom: 1px solid #202040;
+    }
+
+    #raum-1 { background: #000020; }
+    #raum-2 { background: #000018; }
+    #raum-3 { background: #000010; }
+
+    .raum h2 {
+      margin: 0 0 6px 0;
+      font-size: 13px;
+      color: #a0a0ff;
+      text-transform: uppercase;
+    }
+
+    /* Cube – 3x3 Maske */
+    .cube-mask {
+      display: grid;
+      grid-template-columns: repeat(3, 32px);
+      grid-template-rows: repeat(3, 32px);
+      gap: 3px;
+      margin-top: 6px;
+    }
+
+    .cube-mask .cell {
+      background: #200000;
+      border-radius: 4px;
+      box-shadow: 0 0 4px #000 inset;
+    }
+
+    /* RAWWAR Puls */
+    .rawwar-pulse .cell {
+      background: #ff0000 !important;
+      box-shadow: 0 0 10px #ff0000;
+      transition: 0.15s;
+    }
+
+    /* Log-Bereich */
+    #log {
+      background: #000008;
+      border: 1px solid #202040;
+      padding: 6px;
+      height: 80px;
+      overflow-y: auto;
+      font-size: 12px;
+      white-space: pre;
+    }
+  </style>
 </head>
+
 <body>
 
-<div id="respo">
-  <button class="cmd" data-cmd="Start.">Start.</button>
-  <button class="cmd" data-cmd="Stop.">Stop.</button>
-  <button class="cmd" data-cmd="Weiter.">Weiter.</button>
-  <button class="cmd" data-cmd="Zurueck.">Zurueck.</button>
-  <button class="cmd" data-cmd="Freigabe.">Freigabe.</button>
-  <button class="cmd" data-cmd="Haben.">Haben.</button>
-</div>
+  <!-- Szene-Menüführung -->
+  <div id="scene-menu">
+    <span class="label">RAWWAR SCENE</span>
+    <button id="btn-rawwar" class="active">RAW_PULSE</button>
+    <button id="btn-status">STATUS</button>
+    <button id="btn-clear">CLEAR LOG</button>
+  </div>
 
-<div id="log"></div>
+  <!-- RAUM 1: Status / Kontakt -->
+  <div id="raum-1" class="raum">
+    <h2>Kontakt</h2>
+    <div>Anchor: <span id="cube-anker">–</span></div>
+    <div>Status: <span id="cube-status">–</span></div>
+  </div>
 
-<script src="respo.js"></script>
+  <!-- RAUM 2: Cube-Szene -->
+  <div id="raum-2" class="raum">
+    <h2>Cube 1 – RAWWAR</h2>
+    <div id="cube1" class="cube-mask">
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    </div>
+    <div style="margin-top:6px;font-size:12px;color:#8080ff;">
+      Klick auf den Cube → RAWWAR Pulse
+    </div>
+  </div>
+
+  <!-- RAUM 3: Log / Rückmeldung -->
+  <div id="raum-3" class="raum">
+    <h2>Log</h2>
+    <div id="log"></div>
+  </div>
+
+  <script>
+    // FUNKTION 1: RAWWAR starten (Kontakt + Status + Log)
+    function rawwarStart() {
+      const anker = document.getElementById("cube-anker");
+      const status = document.getElementById("cube-status");
+      if (!anker || !status) return;
+
+      anker.textContent = "CUBE_1 → RAW_WAR bereit.";
+      status.textContent = "Warte auf Puls…";
+
+      logLine("RAWWAR_START → Cube 1 bereit.");
+    }
+
+    // FUNKTION 2: RAWWAR Pulse (visuell + Status)
+    function rawwarPulse() {
+      const cube = document.getElementById("cube1");
+      const status = document.getElementById("cube-status");
+      if (!cube || !status) return;
+
+      cube.classList.add("rawwar-pulse");
+      status.textContent = "RAW_WAR → Pulse aktiv.";
+
+      logLine("RAWWAR_PULSE → visueller Puls.");
+
+      setTimeout(() => {
+        cube.classList.remove("rawwar-pulse");
+        status.textContent = "RAW_WAR → Pulse beendet.";
+      }, 500);
+    }
+
+    // FUNKTION 3: Szene-Menü / Log-Steuerung
+    function setScene(action) {
+      const btnRaw = document.getElementById("btn-rawwar");
+      const btnStatus = document.getElementById("btn-status");
+      const btnClear = document.getElementById("btn-clear");
+
+      [btnRaw, btnStatus, btnClear].forEach(b => b.classList.remove("active"));
+
+      switch (action) {
+        case "raw":
+          btnRaw.classList.add("active");
+          rawwarPulse();
+          break;
+        case "status":
+          btnStatus.classList.add("active");
+          rawwarStart();
+          break;
+        case "clear":
+          btnClear.classList.add("active");
+          clearLog();
+          break;
+      }
+    }
+
+    // Hilfsfunktionen: Log
+    function logLine(text) {
+      const log = document.getElementById("log");
+      if (!log) return;
+      const ts = new Date().toISOString().split("T")[1].split(".")[0];
+      log.textContent += "[" + ts + "] " + text + "\n";
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function clearLog() {
+      const log = document.getElementById("log");
+      if (!log) return;
+      log.textContent = "";
+    }
+
+    // Events
+    document.getElementById("cube1").addEventListener("click", () => {
+      setScene("raw");
+    });
+
+    document.getElementById("btn-rawwar").addEventListener("click", () => {
+      setScene("raw");
+    });
+
+    document.getElementById("btn-status").addEventListener("click", () => {
+      setScene("status");
+    });
+
+    document.getElementById("btn-clear").addEventListener("click", () => {
+      setScene("clear");
+    });
+
+    // Initial
+    rawwarStart();
+  </script>
+
 </body>
 </html>
