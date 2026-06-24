@@ -5,102 +5,27 @@
   <title>RAWWAR – Motion Blur Cube</title>
 
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #000018;
-      color: #e0e0ff;
-      font-family: monospace;
-      font-size: 14px;
-    }
-
-    #scene-menu {
-      background: #001030;
-      border-bottom: 1px solid #303060;
-      padding: 6px 10px;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    #scene-menu span.label {
-      color: #8080ff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    #scene-menu button {
-      background: #000018;
-      color: #e0e0ff;
-      border: 1px solid #404080;
-      padding: 3px 8px;
-      cursor: pointer;
-      font-family: monospace;
-      font-size: 12px;
-    }
-
-    #scene-menu button.active {
-      background: #202060;
-      border-color: #8080ff;
-    }
-
-    .raum {
-      padding: 10px;
-      border-bottom: 1px solid #202040;
-    }
-
-    #raum-1 { background: #000020; }
-    #raum-2 { background: #000018; }
-    #raum-3 { background: #000010; }
-
-    .raum h2 {
-      margin: 0 0 6px 0;
-      font-size: 13px;
-      color: #a0a0ff;
-      text-transform: uppercase;
-    }
-
-    /* MOTION BLUR GRID */
-    .cube-mask {
-      display: grid;
-      grid-template-columns: repeat(3, 32px);
-      grid-template-rows: repeat(3, 12px);
-      gap: 4px;
-      margin-top: 6px;
-    }
-
-    .cube-mask .cell {
-      background: #200000;
-      border-radius: 2px;
-      filter: blur(1.5px);
-      opacity: 0.4;
-      transition: 0.15s;
-    }
-
-    /* PULSE → MOTION BLUR FLASH */
-    .rawwar-pulse .cell {
-      background: #ff0000 !important;
-      opacity: 1;
-      filter: blur(4px) brightness(2);
-      box-shadow: 0 0 18px #ff0000;
-    }
-
-    #log {
-      background: #000008;
-      border: 1px solid #202040;
-      padding: 6px;
-      height: 80px;
-      overflow-y: auto;
-      font-size: 12px;
-      white-space: pre;
-    }
+    /* dein kompletter Style bleibt hier */
   </style>
 </head>
 
 <body>
 
+  <!-- dein kompletter HTML-Inhalt -->
   <div id="scene-menu">
     <span class="label">RAWWAR SCENE</span>
     <button id="btn-rawwar" class="active">RAW_PULSE</button>
     <button id="btn-status">STATUS</button>
     <button id="btn-clear">CLEAR LOG</button>
+  </div>
+
+  <!-- Räume, Cube, Log usw. -->
+  <!-- ... -->
+
+  <!-- DAS SCRIPT MUSS HIER HIN -->
+  <script>
+    /* dein kompletter JS-Code */
+  </script>
+
+</body>
+</html>
